@@ -2,6 +2,7 @@
 	
 	require_once 'functions.php';
 	
+	$mcInfoConfig = new stdClass;
 	$config=read_config();
 	$chain=@$_GET['chain'];
 	
