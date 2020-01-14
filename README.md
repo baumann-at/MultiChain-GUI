@@ -44,14 +44,14 @@ It currently supports the following features:
 * Publishing items to streams, as JSON or text or an uploaded file.
 * Viewing stream items, including listing by key or publisher and downloading files.
 * (Writing, testing and approving Smart Filters (both transaction and stream filters).  <= disabled in this fork)
-* A (simple) block explorer to display a list of blocks and details (transactions ...) of each block.
+* A (simple) block explorer to display a list of blocks and details (transactions ...) of each block. <= NEW in this fork
 
 System Requirements
 -------------------
 
 * A computer running web server software such as Apache.
 * PHP 5.x or later with the `curl` and `JSON` extensions.
-* MultiChain 1.0 alpha 26 or later, including MultiChain 2.0 alphas and betas.
+* MultiChain 2.0 or later.
 
 
 Create and launch a MultiChain Blockchain
@@ -90,23 +90,23 @@ In the web gui directory, copy the `config-example.php` file to `config.php`:
 
 	cp config-example.php config.php
   
-Enter optional configuration and chain details in `config.php` e.g.:
+Enter optional configuration and details for one (or more) chains in `config.php` e.g.:
 
-// optional configuration for monitoring script "mc-info"
-$config->serverName = 'blockchains.example.io';
-$config->serverOwner = 'Example Ltd.';
-$config->externalIP = '11.22.33.44'; 
+    // optional configuration for monitoring script "mc-info"
+    $config->serverName = 'blockchains.example.io';
+    $config->serverOwner = 'Example Ltd.';
+    $config->externalIP = '11.22.33.44'; 
 
-$chains = array();
+    $chains = array();
 
-// configuration for a Multichain blockchain
-$chain = new stdClass;
-$chain->name='chain1';                 // name to display in the web interface
-$chain->rpchost='192.168.1.23';        // IP address of MultiChain node
-$chain->rpcport=1234;                  // default-rpc-port from params.dat
-$chain->rpcuser='multichainrpc';       // username for RPC from multichain.conf
-$chain->rpcpassword='---password---';  // password for RPC from multichain.conf
-$chains[] = $chain;
+    // configuration for a Multichain blockchain
+    $chain = new stdClass;
+    $chain->name='chain1';                 // name to display in the web interface
+    $chain->rpchost='192.168.1.23';        // IP address of MultiChain node
+    $chain->rpcport=1234;                  // default-rpc-port from params.dat
+    $chain->rpcuser='multichainrpc';       // username for RPC from multichain.conf
+    $chain->rpcpassword='---password---';  // password for RPC from multichain.conf
+    $chains[] = $chain;
 
 
 Launch the Web GUI
