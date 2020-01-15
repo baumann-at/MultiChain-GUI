@@ -44,3 +44,4 @@
 		} else
 			echo $txfilter['approved'] ? 'Approved' : 'Not approved';
 	}
+?>

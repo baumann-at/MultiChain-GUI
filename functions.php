@@ -2,10 +2,13 @@
 	
 	function read_config()	{
 		require('config.php');
+
     global $mcInfoConfig;
-    $mcInfoConfig->serverName = $config->serverName;
-    $mcInfoConfig->serverOwner = $config->serverOwner;
-    $mcInfoConfig->extIPconfigured = $config->externalIP;
+    if (isset($mcInfoConfig)) {
+	    $mcInfoConfig->serverName = $config->serverName;
+	    $mcInfoConfig->serverOwner = $config->serverOwner;
+	    $mcInfoConfig->extIPconfigured = $config->externalIP;
+	  }  
 // some workaround to build (old) $config structure keep code working ...
     $cfg = $config;       
 		$config=array();

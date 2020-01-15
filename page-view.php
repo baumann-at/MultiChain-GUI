@@ -137,7 +137,7 @@
 							
 				foreach ($keys as $key) {
 					$link='./?chain='.$_GET['chain'].'&page='.$_GET['page'].'&stream='.$viewstream['createtxid'].'&key='.$key;
-					echo format_address_html($key, false, $labels, $link).'&nbsp;';
+					echo format_address_html($key, false, $labels, $link).'<br/>';
 				}
 
 							?></td>
