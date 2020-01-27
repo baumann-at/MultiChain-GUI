@@ -15,6 +15,11 @@
 				output_success_text('Successfully subscribed to stream: '.$stream['name']);
 				$subscribed=true;
 			}
+		if (@$_POST['unsubscribe_'.$stream['createtxid']])
+			if (no_displayed_error_result($result, multichain('unsubscribe', $stream['createtxid']))) {
+				output_success_text('Successfully unsubscribed stream: '.$stream['name']);
+				$subscribed=true;
+			}
 			
 		if (@$_GET['stream']==$stream['createtxid'])
 			$viewstream=$stream;
@@ -45,7 +50,7 @@
 <?php
 				if ($subscribed) {
 ?>	
-								<td><a href="./?chain=<?php echo html($_GET['chain'])?>&page=<?php echo html($_GET['page'])?>&stream=<?php echo html($stream['createtxid'])?>"><?php echo html($stream['name'])?></a></td>
+								<td><a href="./?chain=<?php echo html($_GET['chain'])?>&page=<?php echo html($_GET['page'])?>&stream=<?php echo html($stream['createtxid'])?>"><?php echo html($stream['name'])?></a>&nbsp; <input class="btn btn-default btn-xs" type="submit" name="unsubscribe_<?php echo html($stream['createtxid'])?>" value="Unubscribe"> </td>
 <?php
 				} else {
 					$parts=explode('-', $stream['streamref']);
