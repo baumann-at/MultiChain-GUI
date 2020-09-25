@@ -52,7 +52,7 @@
 					<table class="table table-bordered table-striped">
 						<tr>
 							<th>Node IP address</th>
-							<td><?php echo html(strtok($peer['addr'], ':'))?></td>
+							<td><?php echo html(strtok($peer['addr'], 'X'))?></td>
 						</tr>
 						<tr>
 							<th>Version/Subver</th>
