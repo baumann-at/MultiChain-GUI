@@ -1,7 +1,14 @@
 <?php
 require_once 'functions.php';
+require_once 'auth_lib.php';
 
-$config = read_config();
+list($config, $userConfig, $mcInfoConfig) = read_config();
+
+//check MC-GUI password if used
+if (isset($userConfig->user)) {
+	if (authOK($userConfig->user, $userConfig->pwd_hash, 'MC-GUI requires a valid user')) {};
+}
+
 $chain = @$_GET['chain'];
 $name = strlen($chain) ? @$config[$chain]['name'] : '';
 set_multichain_chain($config[$chain]);

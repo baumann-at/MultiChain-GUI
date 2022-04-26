@@ -3,14 +3,8 @@
 	function read_config()	{
 		require('config.php');
 
-    global $mcInfoConfig;
-    if (isset($mcInfoConfig)) {
-	    $mcInfoConfig->serverName = $config->serverName;
-	    $mcInfoConfig->serverOwner = $config->serverOwner;
-	    $mcInfoConfig->extIPconfigured = $config->externalIP;
-	  }  
-// some workaround to build (old) $config structure keep code working ...
-    $cfg = $config;       
+		// some workaround to build (old) $config structure to keep (old) code working ...
+    	$cfg = $config;       
 		$config=array();
 		foreach($cfg->chains as $chain) {
 			$name = $chain->name;
@@ -20,18 +14,17 @@
 			$config[$name]['rpcuser'] = $chain->rpcuser;
 			$config[$name]['rpcpassword'] = $chain->rpcpassword;
 		}
-		return $config;
+		return array($config, $userConfig, $mcInfoConfig);
 	}
 
-
-	function json_rpc_send($host, $port, $user, $password, $method, $params=array(), &$rawresponse=false)
+	function json_rpc_send($host, $port, $secure, $user, $password, $method, $params=array(), &$rawresponse=false)
 	{
 		if (!function_exists('curl_init')) {
-			output_html_error('This web demo requires the curl extension for PHP. Please contact your web hosting provider or system administrator for assistance.');
+			output_html_error('Multichain GUI requires the curl extension for PHP. Please contact your web hosting provider or system administrator for assistance.');
 			exit;
 		}
 		
-		$url='http://'.$host.':'.$port.'/';
+		$url=($secure ? 'https' : 'http').'://'.$host.':'.$port.'/';
 				
 		$payload=json_encode(array(
 			'id' => time(),
@@ -85,8 +78,8 @@
 		
 		$args=func_get_args();
 		
-		return json_rpc_send($multichain_chain['rpchost'], $multichain_chain['rpcport'], $multichain_chain['rpcuser'],
-			$multichain_chain['rpcpassword'], $method, array_slice($args, 1));
+		return json_rpc_send($multichain_chain['rpchost'], $multichain_chain['rpcport'], $multichain_chain['rpcsecure'], 
+			$multichain_chain['rpcuser'], $multichain_chain['rpcpassword'], $method, array_slice($args, 1));
 	}
 	
 	function multichain_with_raw(&$rawresponse, $method) // other params read from func_get_args()
@@ -96,8 +89,8 @@
 		$args=func_get_args();
 		$rawresponse='';
 		
-		return json_rpc_send($multichain_chain['rpchost'], $multichain_chain['rpcport'], $multichain_chain['rpcuser'],
-			$multichain_chain['rpcpassword'], $method, array_slice($args, 2), $rawresponse);
+		return json_rpc_send($multichain_chain['rpchost'], $multichain_chain['rpcport'], $multichain_chain['rpcsecure'], 
+			$multichain_chain['rpcuser'], $multichain_chain['rpcpassword'], $method, array_slice($args, 2), $rawresponse);
 	}
 	
 	function output_html_error($html)

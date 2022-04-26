@@ -5,12 +5,18 @@
  *
  * @author    Chris Baumann <c.baumann@baumann.at>
  * @copyright 2020 baumann.at - concepts & solutions
- * @version   mc-info v0.1 - 11.1.2020
+ * @version   mc-info v0.2 - 26.4.2022
  */
 
 require_once 'functions.php';
-$mcInfoConfig = new stdClass;
-$configs = read_config();
+require_once 'auth_lib.php';
+
+list($configs, $userConfig, $mcInfoConfig) = read_config();
+
+//check mc-info password if used
+if (isset($mcInfoConfig->user)) {
+	if (authOK($mcInfoConfig->user, $mcInfoConfig->pwd_hash, 'mc-info requires a valid user')) {};
+}
 
 $nodes = array();
 foreach ($configs as $config) {
@@ -22,7 +28,7 @@ $mcInfo = new stdClass;
 $mcInfo->serverName = $mcInfoConfig->serverName;
 $mcInfo->serverOwner = $mcInfoConfig->serverOwner;
 $mcInfo->version = 'mc-info v0.1';
-$mcInfo->extIPconfigured = $mcInfoConfig->extIPconfigured;
+$mcInfo->extIPconfigured = $mcInfoConfig->externalIP;
 
 $res = new stdClass;
 $res->mcInfo = $mcInfo;
