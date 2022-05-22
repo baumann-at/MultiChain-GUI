@@ -13,6 +13,7 @@ Changes / extensions to the original version:
 * Integration of a (simple) Block Explorer.
 * Integrated mc-info (query infos for monitoring using /mc-info.php).
 * New (26.4.2022): Added access control: user/password can be defined for the Web-GUI and the mc-info function.
+* New (22.5.2022): Added "info" and "help" pages.
 
 
 MultiChain Web Demo
