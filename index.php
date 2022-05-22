@@ -1,4 +1,8 @@
 <?php
+/*
+(C) baumann.at 2019-2022
+v2.1.0 22.5.2022
+*/
 require_once 'functions.php';
 require_once 'auth_lib.php';
 
@@ -44,14 +48,12 @@ if (strlen($chain)) {
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=issue" class="pair-first">Assets: Issue</a></li>
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=update" class="pair-second">| Update</a></li>
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=send" class="pair-second">| Send</a></li>
-<!--						
-						<li><a href="./?chain=<?php echo html($chain) ?>&page=offer" class="pair-first">Offer: Create</a></li>
-						<li><a href="./?chain=<?php echo html($chain) ?>&page=accept" class="pair-second">| Accept</a></li>
--->						
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=create" class="pair-first">Streams: Create</a></li>
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=publish" class="pair-second">| Publish</a></li>
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=view" class="pair-second">| View</a></li>
 						<li><a href="./?chain=<?php echo html($chain) ?>&page=blocks">Blocks</a></li>
+						<li><a href="./?chain=<?php echo html($chain) ?>&page=infos">Infos</a></li>
+						<li><a href="./?chain=<?php echo html($chain) ?>&page=help">?</a></li>
 
 <?php
     if (false and multichain_has_smart_filters()) {
@@ -84,6 +86,8 @@ if (strlen($chain)) {
         case 'streamfilter':
         case 'approve':
         case 'asset-file':
+        case 'infos':
+        case 'help':
         case 'blocks':
         case 'block':
             require_once 'page-' . $_GET['page'] . '.php';
